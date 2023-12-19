@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OptiSync Enablers - Issue Credential</title>
+  <style>
+    /* Your styles here... */
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+    }
+
+    #side-menu {
+      width: 300px;
+      height: 5000px;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #menu-btns {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-bottom: 5px;
+      width: 260px;
+      font-size: 22px;
+      height: 60px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .form-container {
+      display: none;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      max-width: 2000px;
+      width: 1450px;
+      height: 500px;
+    }
+
+    .form-container label {
+      /* Style for labels in form1 */
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 100%;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="side-menu">
+    <h2>Welcome to the Blockchain Administrator Panel!</h2>
+    <div id="menu-btns">
+      <button onclick="showForm('form1')">Issue Credential</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <form id="form1" class="form-container">
+      <h2>Issue Credential</h2>
+      <label for="subjectDID">Sender Id :</label>
+      <input type="text" id="subjectDID" name="subjectDID" required>
+      <br>
+      <label for="roll">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <br>
+      
+      <label for="selectSchema">Gmail: </label>
+      <input type="text" id="selectSchema" name="Gmail" required>
+      <br>
+      <label for="role">Role:</label>
+      <input type="text" id="role" name="role" required>
+      <br>
+
+      <label for="adharNumber">Aadhar Number (12 digits):</label>
+      <input type="text" id="adharNumber" name="adharNumber" pattern="\d{12}" title="Enter a 12-digit Aadhar number" required>
+      <br>
+
+      <label for="expiryDate">DOB:</label>
+      <input type="date" id="expiryDate" name="expiryDate" required>
+      <br>
+
+      <input type="submit" value="Issue">
+    </form>
+  </div>
+
+  <script>
+    function showForm(formId) {
+      var form = document.getElementById(formId);
+  
+      // Add an event listener for form submission
+      form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+  
+        // Get the DOB input element
+        var dobInput = form.querySelector('#expiryDate');
+  
+        // Convert the date to the desired format
+        var formattedDOB = getFormattedDate(dobInput.value);
+  
+        // Get all form inputs
+        var inputs = form.querySelectorAll('input, select, textarea');
+  
+        // Create a dictionary to store key-value pairs
+        var formData = {};
+  
+        // Iterate through each input and store its value in the dictionary
+        inputs.forEach(function (input) {
+          if (input.id === 'expiryDate') {
+            // Use the formatted date for the DOB field
+            formData[input.name] = formattedDOB;
+          } else {
+            formData[input.name] = input.value;
+          }
+        });
+  
+        // Display the form data (you can customize this part)
+        console.log(formData);
+        alert('Form data saved:\n' + JSON.stringify(formData, null, 2));
+      });
+  
+      form.style.display = 'block';
+    }
+  
+    // Function to format the date to "YYYY-MM-DDTHH:mm:ss.SSSZ" format
+    function getFormattedDate(dateString) {
+      var date = new Date(dateString);
+      return date.toISOString();
+    }
+  </script>
+  
+
+  
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Page</title>
+</head>
+<body>
+    <h1>Your QR Code</h1>
+    <img src="{% url 'generate_qr_code' data='`type`:[`VerifiableCredential`,`System User`]' %}" alt="QR Code">
+  </body>
+</html>
